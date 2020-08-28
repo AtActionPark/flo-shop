@@ -1,9 +1,9 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 module.exports.handler = async (event, context, callback) => {
-  if (!context.clientContext.user) {
+  /* if (!context.clientContext.user) {
     return { statusCode: 401, body: "" }
-  }
+  } */
 
   const requestBody = JSON.parse(event.body)
 
@@ -12,12 +12,14 @@ module.exports.handler = async (event, context, callback) => {
     type: "good",
   })
 
-  const skus = requestBody.skus.map(async skuData => {
-    return stripe.skus.create({
-      ...skuData,
+  const prices = requestBody.prices.map(async priceData => {
+    const test = {
+      ...priceData,
       product: product.id,
-      currency: "usd",
-    })
+      currency: "eur",
+    }
+    delete test.id
+    return stripe.prices.create(test)
   })
 
   const response = {
@@ -25,7 +27,7 @@ module.exports.handler = async (event, context, callback) => {
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify({ product, skus: Promise.all(skus) }),
+    body: JSON.stringify({ product, prices: Promise.all(prices) }),
   }
   callback(null, response)
 }

@@ -31,21 +31,22 @@ function ProductFormImages({ productImages, setProductImages }) {
         </label>
       </div>
       <div className={css.container}>
-        {productImages.map(src => (
+        {
+        productImages ? productImages.map(src => (
           <div className={css.image} key={src}>
             <button onClick={() => remove(src)} className={css.remove}>
               &times;
             </button>
             <img src={src} alt={"Could not load image"} />
           </div>
-        ))}
+        )) : null}
       </div>
     </>
   )
 }
 
 ProductFormImages.propTypes = {
-  productImages: PropTypes.object.isRequired,
+  productImages: PropTypes.array.isRequired,
   setProductImages: PropTypes.func.isRequired,
 }
 

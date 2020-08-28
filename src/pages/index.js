@@ -1,13 +1,13 @@
 import React from "react"
 
 import StoreLayout from "../components/StoreLayout"
-import Products from "../components/Products"
 import SEO from "../components/SEO"
+import Home from "../components/Home";
 
 const IndexPage = () => (
   <StoreLayout>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <Products></Products>
+    <Home></Home>
   </StoreLayout>
 )
 

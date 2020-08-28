@@ -32,7 +32,8 @@ IdentityProvider.propTypes = {
 
 export function Authenticate(props) {
   const { user, login } = useContext(IdentityContext)
-  if (!user && !process.env.VUE_APP_DEMO === "true") {
+
+  if (!user) {
     return (
       <div
         id="login"

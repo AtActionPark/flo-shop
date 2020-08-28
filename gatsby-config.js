@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `campy trails`,
+    title: `flo shop`,
     description: `Stripe storefront starter for Gatsby`,
     author: `Brock McElroy <brxck.dev>`,
   },
@@ -18,8 +18,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `campy trails`,
-        short_name: `campy trails`,
+        name: `flo shop`,
+        short_name: `flo shop`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
@@ -30,7 +30,7 @@ module.exports = {
     {
       resolve: `gatsby-source-stripe`,
       options: {
-        objects: ["Product", "Sku"],
+        objects: ["Price"],
         secretKey: process.env.STRIPE_SECRET_KEY,
         downloadFiles: true,
         auth: false,
