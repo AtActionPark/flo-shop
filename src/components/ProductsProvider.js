@@ -92,19 +92,21 @@ const mergeStripeData = (stripeData, products) => {
   const mergedPrices = {}
   stripeData.forEach(stripePrice => {
     const { id } = stripePrice.product
-    const gatsbyPrice = products[id]?.prices.find(x => x.id === stripePrice.id)
-    const updatedPrice = Object.assign(stripePrice, gatsbyPrice)
-
-    if (!mergedProducts[id]) {
-      stripePrice.product.slug = products[id].slug
-      mergedProducts[id] = {
-        ...products[id],
-        ...stripePrice.product,
-        prices: [],
+    // if the product is not on gatsby store, we need to rebuild before displaying it
+    if(products[id]){
+      const gatsbyPrice = products[id]?.prices.find(x => x.id === stripePrice.id)
+      const updatedPrice = Object.assign(gatsbyPrice, updatedPrice)
+      if (!mergedProducts[id]) {
+        stripePrice.product.slug = products[id].slug
+        mergedProducts[id] = {
+          ...products[id],
+          ...stripePrice.product,
+          prices: [],
+        }
       }
+      mergedProducts[id].prices.push(updatedPrice)
+      mergedPrices[updatedPrice.id] = updatedPrice
     }
-    mergedProducts[id].prices.push(updatedPrice)
-    mergedPrices[updatedPrice.id] = updatedPrice
   })
   return [mergedProducts, mergedPrices]
 }
