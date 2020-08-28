@@ -8,13 +8,23 @@ Forked from https://github.com/brxck/gatsby-starter-stripe
 
 2. Netlify account with auth activated
 
-3. Dependency gatsby-soutrce-stripe does not yet handle downloading pictures from stripe with new price API. PR pending
+3. Dependency gatsby-source-stripe does not yet handle downloading pictures from stripe with new price API. PR pending
 
-   For now its been changed locally in npm modules:
+   For now its been patched locally with patch-package. Apply patch with
    ```
-   FileDownloadService ln 33 : change 'sku' to 'price'
+   npx patch-package
+   ```
 
-   Helpers/ExtractUrls ln 13: change 'sku' to 'price
+   or
+   ```
+   yarn patch-package
+   ```
+
+4. Create a .env file with the following
+   ```
+   STRIPE_SECRET_KEY="sk_test_..."
+   GATSBY_STRIPE_PUBLISHABLE_KEY="pk_test_..."
+   REDIRECT_URL="http://localhost:8888"
    ```
 
 ## Getting Started
